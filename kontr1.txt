@@ -1,0 +1,27 @@
+## task 1
+s= "abcabc"
+n = int(input())
+
+def formula(n, temp = 0, reshenie = 0):
+	k = 1
+	if temp == n:
+		print(reshenie)
+		return ""
+
+	temp += 1
+	reshenie += (1/((2 * k) + 1) * ((2 * k) + 1))
+	return formula(n, temp, reshenie)
+print(formula(n))
+		
+## task 2
+def char_replace(s, old = "ab", new = "x", i = 0):
+	if i == len(s):
+		print("ss")
+		return ""
+	
+	if s[i] in old:
+		print("sss")
+	i += 1
+	return char_replace(s, old, new, i)
+
+print(char_replace(s))
