@@ -1,0 +1,7 @@
+#3 Вариант
+import math
+def pr(n, k, result = 1, fac=1):
+	if n == 1:
+		return n
+	return result * (1 + math.sin(k*x)/(fac*n)  
+print(pr)

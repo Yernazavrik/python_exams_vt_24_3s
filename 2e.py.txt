@@ -1,0 +1,6 @@
+def nested_dict(n):
+	dict = {'level': n, 'next':}
+	n = n+1
+	if n > 0:
+		return dict{'level': n-1, 'next':}
+print(nested_dict(3))
