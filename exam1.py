@@ -10,5 +10,5 @@ def rec(x, n, i=1, fact = 1, sum = 0, dec_fact = 3, dec_x = 2):
 	print(sum)
 	print("***********")
 	return rec(x, n, i+1, fact, sum, dec_fact, dec_x)
-print(rec(2, 3))
+print(rec(2, 3)) # test
 	
