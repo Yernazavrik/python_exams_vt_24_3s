@@ -12,4 +12,3 @@ def flatten_dict(nested_dict, parent_key = "", separator = "."):
 dict_1 = {"a":{"b":{"c":1}}}
 
 print(flatten_dict(dict_1))
-	
