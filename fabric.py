@@ -1,3 +1,4 @@
+#variant 1
 from PyQt5 import QtWidgets, QtGui, QtCore
 import PyQt5
 import sys
