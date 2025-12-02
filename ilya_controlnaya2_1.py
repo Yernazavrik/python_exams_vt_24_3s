@@ -1,81 +1,103 @@
 #Вариант 1
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QFormLayout, QFrame
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox, QLineEdit, QHBoxLayout, QLabel
 from PyQt5.QtCore import Qt
 
-class AddProductForm(QWidget):
+
+"""Базовый класс кнопки с текстом"""
+class BaseButton(QPushButton):
+    def __init__(self, text):
+        super().__init__(text)
+        self.setMinimumHeight(30)
+
+class DangerButton(BaseButton):
+    """Красная опасная кнопка"""
+    def __init__(self):
+        super().__init__("Опасная кнопка (Danger)")
+        self.setStyleSheet("background: #d9534f; color: white; border: none; padding: 5px;")
+
+class SuccessButton(BaseButton):
+    """Зеленая кнопка успеха"""
+    def __init__(self):
+        super().__init__("Кнопка успеха (Success)")
+        self.setStyleSheet("background: #5cb85c; color: white; border: none; padding: 5px;")
+
+class DefaultButton(BaseButton):
+    """Обычная кнопка"""
+    def __init__(self):
+        super().__init__("Обычная кнопка (Default)")
+
+
+class ButtonFactory:
+    @staticmethod
+    def create_button(button_type: str) -> QPushButton:
+
+        button_type = button_type.lower().strip()
+        if button_type == "danger":
+            return DangerButton()
+        elif button_type == "success":
+            return SuccessButton()
+        elif button_type == "default":
+            return DefaultButton()
+        else:
+
+            return DefaultButton() 
+
+
+
+
+class AppWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.created_buttons_count = 0
 
     def initUI(self):
-        self.setWindowTitle('Добавление товара')
-        self.setGeometry(100, 100, 450, 150) # Увеличиваем ширину для лучшего отображения двух колонок
+        self.setWindowTitle('Фабрика кнопок PyQt5')
+        self.setGeometry(100, 100, 400, 300)
 
-        # --- Левая часть: Поля ввода ---
-        self.name_input = QLineEdit(self)
-        self.price_input = QLineEdit(self)
+        main_layout = QVBoxLayout()
+        main_layout.setSpacing(10)
 
-        form_layout = QFormLayout()
-        form_layout.addRow('Название:', self.name_input)
-        form_layout.addRow('Цена:', self.price_input)
+        controls_layout = QHBoxLayout()
         
-        # Создаем контейнер для левой части
-        left_container = QFrame()
-        left_container.setLayout(form_layout)
-
-
-        # --- Правая часть: Кнопка и метка ---
-        self.save_button = QPushButton('Сохранить', self)
-        self.status_label = QLabel('Заполните все поля', self)
+        controls_layout.addWidget(QLabel("Тип (danger, success, default):"))
+        self.type_input = QLineEdit(self)
+        self.type_input.setPlaceholderText("Введите тип кнопки")
+        controls_layout.addWidget(self.type_input)
         
-        # Настройка метки статуса (красный цвет, выравнивание)
-        self.status_label.setStyleSheet("color: red; padding: 10px;")
-        self.status_label.setAlignment(Qt.AlignCenter)
-        # self.status_label.setWordWrap(True) # Если текст может быть длинным
-        self.status_label.hide() 
+        self.create_btn = QPushButton('Создать кнопку', self)
+        self.create_btn.clicked.connect(self.create_new_button)
+        controls_layout.addWidget(self.create_btn)
 
-        # Создаем вертикальный макет для правой части
-        right_layout = QVBoxLayout()
-        right_layout.addWidget(self.save_button)
-        right_layout.addWidget(self.status_label)
-        right_layout.setAlignment(Qt.AlignTop) # Прижимаем содержимое правой части к верху
-        
-        # Создаем контейнер для правой части
-        right_container = QFrame()
-        right_container.setLayout(right_layout)
+        main_layout.addLayout(controls_layout)
 
 
-        # --- Основной макет: Горизонтальный ---
-        main_layout = QHBoxLayout()
-        main_layout.addWidget(left_container, 1) # 1 - растягиваемый фактор для левой части
-        main_layout.addWidget(right_container, 1) # 1 - растягиваемый фактор для правой части
+        main_layout.addStretch(1) 
 
         self.setLayout(main_layout)
 
-        # Подключение обработчика события к кнопке
-        self.save_button.clicked.connect(self.on_save_button_clicked)
+    def create_new_button(self):
+        button_type = self.type_input.text()
+        
+    
+        new_button = ButtonFactory.create_button(button_type)
+        
+ 
+        main_layout = self.layout()
+        main_layout.insertWidget(main_layout.count() - 1, new_button)
+        
+ 
+        new_button.clicked.connect(lambda ch, btn_type=new_button.text(): 
+                                   QMessageBox.information(self, "Клик", f"Вы нажали на кнопку типа: {btn_type}"))
 
-    def on_save_button_clicked(self):
-        name = self.name_input.text()
-        price = self.price_input.text()
-
-        if not name or not price:
-            self.status_label.setText('Заполните все поля')
-            self.status_label.setStyleSheet("color: red; padding: 10px;")
-            self.status_label.show()
-        else:
-            self.status_label.setText(f'Товар сохранен:\n"{name}", {price} р.')
-            self.status_label.setStyleSheet("color: green; padding: 10px;")
-            self.status_label.show()
-            
-            # Очистка полей
-            self.name_input.clear()
-            self.price_input.clear()
+        self.type_input.clear()
+        self.status_label = QLabel(f"Создано кнопок: {self.created_buttons_count}")
+        self.created_buttons_count += 1
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = AddProductForm()
+    ex = AppWindow()
     ex.show()
     sys.exit(app.exec_())
