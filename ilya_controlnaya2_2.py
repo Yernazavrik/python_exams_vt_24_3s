@@ -1,3 +1,4 @@
+#Вариант 1
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QFormLayout, QFrame
 from PyQt5.QtCore import Qt
