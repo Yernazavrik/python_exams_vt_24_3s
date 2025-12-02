@@ -1,6 +1,14 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QVBoxLayout, QTabWidget
 from PyQt5 import QtCore, QtWidgets
+
+class LineEditCreator(ABC):
+
+class HighlightLineEdit(QLineEdit):
+    def __init__(self):
+        super().__init__()
+        self.PlaceholderText("Подсветка при вводе")
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
