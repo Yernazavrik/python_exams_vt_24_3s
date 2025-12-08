@@ -1,0 +1,21 @@
+n = int(input())
+x = int(input())
+def fact(n, f):
+	if n == 0:
+		return 1
+	print(f)
+	return f*fact(n-1, f+1)
+def dec_x(x,i):
+	if i == 0:
+		return 1
+	print(x)
+	return x* dec_x(x, i - 1)
+def rec(n, x, i = 1):
+
+	if n == 1:
+		return 1 
+	return ((dec_x(x,i))/(fact(n, i) + (i*i))) + rec(n-1, x, i+1)
+
+
+
+print(rec(n,x))

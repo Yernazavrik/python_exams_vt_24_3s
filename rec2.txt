@@ -1,0 +1,11 @@
+def remove_digits(s, i=0):
+    digits = "0123456789"
+    if i == len(s):
+        return ""
+    if s[i] in digits:
+        return remove_digits(s, i + 1)
+    else:
+        return s[i] + remove_digits(s, i + 1)
+
+s = input()
+print(remove_digits(s))
