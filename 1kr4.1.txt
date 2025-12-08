@@ -1,0 +1,11 @@
+def step(n, a):
+	if n == 0:
+		return 1
+	return step(n*n, a-1)
+def s(n,x):
+	if n==1:
+		return 1
+	return step(x, step(n, 2))
+n = int(input())
+x = int(input())
+print(s(n,x))
