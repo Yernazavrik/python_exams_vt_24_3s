@@ -1,0 +1,17 @@
+import math
+def st(a, b):
+	if b == 1:
+		return a
+	return a*rec(a,b-1)
+def fac(n):
+	if n == 1:
+		return 1
+	return n * fac(n-1)
+def rec(x, n):
+	if n == 1:
+		return 1
+	
+	return (st(x,n))/(math.sqrt(fac(n)+n*n*n)) + rec(x, n - 1)
+x_v = int(input())
+n_v = int(input())
+print(rec(x_v,n_v))

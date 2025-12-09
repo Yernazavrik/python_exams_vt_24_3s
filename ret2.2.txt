@@ -1,0 +1,6 @@
+def sum_unique_digits(n):
+	if sum_unique_digits(n)%2 == 0:
+		
+a = int(input())
+
+print()
