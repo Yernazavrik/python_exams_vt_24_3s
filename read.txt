@@ -1,0 +1,105 @@
+# 1. Разворот строки (без циклов). Используем вспомогательную функцию с индексом,
+# чтобы не применять срезы.
+def reverse(s: str) -> str:
+    def rev_from(i: int) -> str:
+        if i < 0:
+            return ""
+        return s[i] + rev_from(i - 1)
+    return rev_from(len(s) - 1)
+
+
+# 2. Подсчёт количества символов в строке (рекурсией)
+def count_chars(s: str) -> int:
+    def cnt(i: int) -> int:
+        if i >= len(s):
+            return 0
+        return 1 + cnt(i + 1)
+    return cnt(0)
+
+
+# 3. Подсчёт гласных в строке (используя только рекурсию)
+VOWELS = set("aeiouAEIOUаеёиоуыэюяАЕЁИОУЫЭЮЯ")
+def count_vowels(s: str) -> int:
+    def cnt(i: int) -> int:
+        if i >= len(s):
+            return 0
+        return (1 if s[i] in VOWELS else 0) + cnt(i + 1)
+    return cnt(0)
+
+
+# 4. Проверка палиндрома (рекурсивно). Сравниваем первый и последний символы.
+# По умолчанию считаем всё, включая пробелы и регистр; можно предварительно очистить.
+def is_palindrome(s: str) -> bool:
+    def check(l: int, r: int) -> bool:
+        if l >= r:
+            return True
+        if s[l] != s[r]:
+            return False
+        return check(l + 1, r - 1)
+    return check(0, len(s) - 1)
+
+
+# 5. Удаление пробелов из строки (рекурсивно)
+def remove_spaces(s: str) -> str:
+    def rm(i: int) -> str:
+        if i >= len(s):
+            return ""
+        return ("" if s[i].isspace() else s[i]) + rm(i + 1)
+    return rm(0)
+
+
+# 6. Подсчёт суммы цифр числа (рекурсивно)
+def sum_digits(n: int) -> int:
+    n = abs(n)
+    if n == 0:
+        return 0
+    return n % 10 + sum_digits(n // 10)
+
+
+# 7. Произведение цифр числа (рекурсивно).
+# Если число 0 — возвращаем 0, для остальных учитываем цифру 0 в произведении.
+def prod_digits(n: int) -> int:
+    n = abs(n)
+    if n == 0:
+        return 0
+    def prod(x: int) -> int:
+        if x < 10:
+            return x
+        d = x % 10
+        rest = x // 10
+        # если какая-то цифра 0 — произведение станет 0
+        return d * prod(rest)
+    return prod(n)
+
+
+# 8. Рекурсивное построение строки из звёздочек: stars(n) -> "*" для n=5
+def stars(n: int) -> str:
+    if n <= 0:
+        return ""
+    return "*" + stars(n - 1)
+
+
+# 9/10. Создание рекурсивного (вложенного) словаря:
+# nested_dict(n) -> {'level': n, 'next': {'level': n-1, 'next': ...}} пока n>0.
+# Когда достигаем 0, положим None в 'next' (как в условии «пока n > 0»).
+def nested_dict(n: int):
+    if n <= 0:
+        return None
+    return {'level': n, 'next': nested_dict(n - 1)}
+
+
+# 11/12. Подсчёт глубины рекурсивного словаря:
+# Для структуры вида {'a': {'b': {'c': {'d': None}}}} вернуть 4.
+# Алгоритм: если не dict -> 0, иначе 1 + максимум глубин значений-словарей.
+def depth(d) -> int:
+    if not isinstance(d, dict):
+        return 0
+    max_child = 0
+    for v in d.values():
+        if isinstance(v, dict):
+            child_depth = depth(v)
+        else:
+            child_depth = depth(v)  # depth for non-dict will return 0
+        if child_depth > max_child:
+            max_child = child_depth
+    return 1 + max_child
