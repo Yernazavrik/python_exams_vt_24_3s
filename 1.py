@@ -19,4 +19,4 @@ def S(n,x):
 
 x = int(input("Введите х: "))
 i = int(input("Введите i: "))
-print(S(x, i))
+print(S(x, i))#
