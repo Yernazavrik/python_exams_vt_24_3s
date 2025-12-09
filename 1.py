@@ -1,43 +1,22 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QVBoxLayout, QTabWidget
-from PyQt5 import QtCore, QtWidgets
+from math import log
 
-class LineEditCreator(ABC):
+def stepen(x,i):
+    if i >= 1:
+        return x*stepen(x, i-1)
+    else:
+        return 1
 
-class HighlightLineEdit(QLineEdit):
-    def __init__(self):
-        super().__init__()
-        self.PlaceholderText("Подсветка при вводе")
+def S(n,x):
+    if n <= 0:
+        return 0
+    
+    i = n
+    numerator = stepen(x,i)
+    denomirator = log(i*i+1)
+    currect = numerator / denomirator
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("My App")
+    return currect + S(n-1, x)
 
-        btn = QPushButton('Войти', self)
-        btn.resize(btn.sizeHint())
-        btn.move(50, 120)
-
-        btn = QPushButton('Регистрация', self)
-        btn.resize(btn.sizeHint())
-        btn.move(150, 120)
-
-        self.lineEdit = QtWidgets.QLineEdit(self)
-        self.lineEdit.setGeometry(QtCore.QRect(5, 20, 100, 20))
-        self.lineEdit.setText("")
-        self.lineEdit.setObjectName("lineEdit")
-        self.lineEdit.move(100,80)
-
-        self.lineEdit2 = QtWidgets.QLineEdit(self)
-        self.lineEdit2.setGeometry(QtCore.QRect(5, 50, 100, 20))
-        self.lineEdit2.setText("")
-        self.lineEdit2.setObjectName("lineEdit")
-        self.lineEdit2.move(100,50)
-
-        self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Tooltips')
-        self.show()
-app = QApplication(sys.argv)
-window = MainWindow()
-window.show()
-app.exec_()
+x = int(input("Введите х: "))
+i = int(input("Введите i: "))
+print(S(x, i))
