@@ -16,7 +16,7 @@ def s(x,i,n):
 	i3 = mul(i2, i)
 	s1 = i3 * i
 	num = power(x, i2)
-	return num / s1 (x, i + 1,n)
+	return num / s1 + S(x, i + 1,n)
 	print(s(2,1,5)) 
 
 ## Task 2
