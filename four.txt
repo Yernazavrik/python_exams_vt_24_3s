@@ -1,0 +1,47 @@
+
+def step(base, exp):
+	if exp == 1:
+		return base
+	if exp == 0:
+		return 1
+	
+	return base * step(base, exp - 1)
+
+def fac(n):
+	if n == 1:
+		return 1
+	return n * fac(n - 1)
+
+
+def rec(x, n):
+	if n == 1:
+		return 1
+	up = step(x, n - 1)
+	down = fac(n) + (n*n)
+	return (up/down) + rec(x, n-1)
+
+print(rec(1, 2))
+
+
+
+def remove_digits(s):
+
+	digits_none = ["1","3","5","7","9"]
+	list = []
+	for letter in s:
+		list.append(letter)
+
+	for word in list:
+		if word in digits_none:
+			list.remove(word)
+			print(list)
+
+def add_list(s, list):
+	if s == "":
+		return ""
+	return list.append(s) + add_list(s[1:], list)
+
+print add_list()
+print(remove_digits("as32d1"))
+
+	
