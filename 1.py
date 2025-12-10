@@ -11,7 +11,6 @@ def S(n,x):
         return 0
     
     i = n
-    numerator = stepen(x,i)
     denomirator = log(i*i+1)
     currect = numerator / denomirator
 
@@ -19,4 +18,5 @@ def S(n,x):
 
 x = int(input("Введите х: "))
 i = int(input("Введите i: "))
+numerator = stepen(x,i)
 print(S(x, i))#
