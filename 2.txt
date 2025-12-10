@@ -1,0 +1,26 @@
+def perfectnumber(s):
+    digits = "0123456789_"
+    list = []
+    def remove_word(s_f, i = 0):
+    	if i == len(s):
+        	return ""
+    	if s[i] in digits:
+        	return s[i] + remove_word(s, i + 1)
+    	else:
+        	return remove_word(s, i + 1)
+
+    def remove_(digit_slash, index, list):
+        digit_w = "0123456789"
+    	if index == len(digit_slash):
+        	return ""
+	if digit_slash == "_"
+		return remove_(digit_slash,index + 1, list)
+	else:
+		return digit_slash[index] + remove_(digit_slash, index + 1, list)
+
+    return remove_(s, 0, list)
+    return remove_word(s)
+
+	
+s = input()
+print(perfectnumber(s))
