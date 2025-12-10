@@ -1,0 +1,43 @@
+def power(base, exp):
+	if exp == 0:
+		return 1
+	return power(base, exp - 1) * base
+
+def rec(x, y, n):
+	if n == 0:
+		return 1
+	up = power(x, n) + power(y, x)
+	down = n + power(n,y)
+	return rec(x,y,n-1) * (up/down)
+
+x = int(input("x: "))
+y = int(input("y: "))
+n = int(input("n: "))
+
+print(rec(x,y,n))
+
+
+# 50 минут на эту задачу на рекурсию, не могу. Примерно понимаю как это решить с помощью циклов.
+def flatten_dict(dict):
+	obj_ins = dict.items()
+
+
+	def _ind(keys, index):
+		if index == 2:
+			return
+		return print(keys)
+
+
+	def _recus():
+		pass
+
+
+
+	print(_ind(keys_maybe, 0))
+
+	return _recus()
+
+
+dict = {"a": {"b": 1, "c": 2}, "d": 3}
+items = dict.items()
+
