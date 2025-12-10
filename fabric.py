@@ -11,15 +11,25 @@ class DangerButton(BaseButton):
     def __init__(self):
         super().__init__("danger button")
         self.setStyleSheet("background: #d9534f; color: white;")
+    def create_button(self, button_type:str) -> QtWidgets.QPushButton:
+        button = QtWidgets.QPushButton()
+        button.setStyleSheet("background: #d9534f; color: white;")
+        return button
         
 class SuccessButton(BaseButton):
     def __init__(self):
         super().__init__("success")
         self.setStyleSheet("background: #5cb85c; color: white;")
-        
+    def create_button(self, button_type:str) -> QtWidgets.QPushButton:
+        button = QtWidgets.QPushButton()
+        button.setStyleSheet("background: #5cb85c; color: white;")
+        return button
 class DefaultButton(BaseButton):
     def __init__(self):
         super().__init__("default Button")
+    def create_button(self, button_type:str) -> QtWidgets.QPushButton:
+        button = QtWidgets.QPushButton()
+        return button
         
 class Selector():
     def choose_button(button_type:str):
@@ -47,7 +57,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.factory = Selector.choose_button(self.line_edit.text())
             self.buttonType = self.factory.create_button("")
             self.layout.addWidget(self.buttonType)
-            
+            self.buttonType.setText(self.line_edit.text())
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
