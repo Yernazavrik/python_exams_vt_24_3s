@@ -1,10 +1,10 @@
 def sum_of_unique_digit_squares(n):
-    def helper(n, seen_digits):
+    def helper(n):
         if n == 0:
             return 0
 
         digit = n % 10
-        rest_sum = helper(n // 10, seen_digits)
+        rest_sum = helper(n // 10)
 
         if digit in seen_digits:
             return rest_sum
@@ -12,7 +12,7 @@ def sum_of_unique_digit_squares(n):
             seen_digits.append(digit)
             return digit * digit + rest_sum
     
-    return helper(n, seen_digits)
+    return helper(n)
 
 seen_digits = []
 a = int(input("Введите число: "))
